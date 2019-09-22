@@ -1,15 +1,13 @@
+from . import db
 
 
-class User:
-    '''
-    User class to define User Objects
-    '''
+class User(db.Model):
+     __tablename__ = 'users'
+    id = db.Column(db.Integer,primary_key = True)
+    username = db.Column(db.String(255))
     
-    def __init__(self,id,username,email,password):
-        self.id = id
-        self.username = username
-        self.email = email
-        self.password = password
+    def __repr__(self):
+        return f'User {self.username}'
         
         
     def save_user(self):
@@ -27,13 +25,13 @@ class Pitch:
     Pitch class to define Pitch Objects
     '''
     
-    def __init__(self,id,category,content,upVotes,downVotes,publishedAt):
+    def __init__(self,id,category,post,upVotes,downVotes):
         self.id = id
         self.category = category
-        self.content = content
+        self.post = post
         self.upVotes= upVotes
         self.downVotes = downVotes
-        self.publishedAt = publishedAt
+        
         
         
 class Category:
