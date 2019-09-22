@@ -2,8 +2,9 @@ from . import db
 
 
 class User(db.Model):
-     __tablename__ = 'users'
-    id = db.Column(db.Integer,primary_key = True)
+    
+    __tablename__ = 'users'
+    id = db.Column(db.Integer,primary_key=True)
     username = db.Column(db.String(255))
     
     def __repr__(self):
@@ -49,10 +50,10 @@ class Comment:
     Comment class to define Comment Objects
     '''
     
-    def __init__(self,id,user-id,pitch-id,comment,feedback):
+    def __init__(self,id,user_id,pitch_id,comment,feedback):
         self.id = id
-        self.user-id = user-id
-        self.pitch-id = pitch-id
+        self.user_id = user_id
+        self.pitch_id = pitch_id
         self.comment = comment
         self.feedback = feedback
         
@@ -62,10 +63,10 @@ class Votes:
     Votes class to define Votes Objects
     '''
     
-    def __init__(self,id,user-id,pitch-id,upVotes,downVotes):
+    def __init__(self,id,user_id,pitch_id,upVotes,downVotes):
         self.id = id
-        self.user-id = user-id
-        self.pitch-id = pitch-id
+        self.user_id = user_id
+        self.pitch_id = pitch_id
         self.upVotes = upVotes
         self.downVotes = downVotes
         
