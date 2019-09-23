@@ -7,10 +7,12 @@ class UpdateProfile(FlaskForm):
     bio = TextAreaField('Please tell us about you.',validators = [Required()])
     submit = SubmitField('Submit')
     
+    
 #Pitch Form
 class PitchForm(FlaskForm):
-    content = TextAreaField('Kindly post your Pitch')  
+    post = TextAreaField('Kindly post your Pitch')  
     submit = SubmitField('Submit Pitch')
+    vote = RadioField('default field arguments', choices=[('1', 'UpVote'), ('1', 'DownVote')])
     
 #Category Form
 class CategoryForm(FlaskForm):
