@@ -1,4 +1,4 @@
-from flask import render_template,flash
+from flask import render_template,flash, redirect, url_for, request
 from . import auth
 from flask_login import login_user,logout_user,login_required
 from ..models import User
@@ -18,7 +18,7 @@ def login():
 
         flash('Invalid username or Password')
 
-    title = "pitch-app login"
+    title = "pitch-app logIn"
     return render_template('auth/login.html',login_form = login_form,title=title)
     
 
