@@ -1,2 +1,17 @@
 {% extends 'base.html'%}
 {% import 'macros.html' as macro%}
+{% block content %}
+
+<div class="container">
+    <br>
+    <h2> <strong>PITCH CATEGORIES </strong></h2>
+    <strong style="font-size: 20px;">{{ macro.displayCategoryList(cat) }} </strong>
+    <br>
+    <br>
+    
+    
+    
+</div>
+
+
+{% endblock  %}

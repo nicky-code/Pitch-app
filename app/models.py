@@ -1,6 +1,7 @@
 from . import db,login_manager
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
+# from app.models import User, Pitch, Category, Comment
 
 
 @login_manager.user_loader
@@ -14,12 +15,13 @@ class User(UserMixin,db.Model):
     id = db.Column(db.Integer,primary_key=True)
     username = db.Column(db.String(255),index = True)
     email = db.Column(db.String(255),unique = True,index = True)
-    bio = db.Column(db.String(255))
-    profile_pic_path = db.Column(db.String())
-    
     pass_secure = db.Column(db.String(255))
+    pitches = db.relationship('Pitch')
+    comments = db.relationship('Comment')
+    bio = db.Column(db.String(255))
+    profile_pic_path = db.Column(db.String(80))
     
-    
+
     @property
     def password(self):
         raise AttributeError('You cannot read the password attribute')
@@ -47,41 +49,63 @@ class User(UserMixin,db.Model):
     
     
         
-class Pitch:
-    '''
-    Pitch class to define Pitch Objects
-    '''
+class Pitch(db.Model):
+    __tablename__ = 'pitches'
+    id = db.Column(db.Integer,primary_key=True)
+    title = db.Column(db.String(255))
+    post = db.Column(db.String(255))
+    category = db.Column(db.Integer, db.ForeignKey('categories.id'))
+    downvotes = db.Column(db.Integer)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    comments = db.relationship('Comment')
+    upvotes = db.Column(db.Integer)
     
-    def __init__(self,id,category,post,upVotes,downVotes):
-        self.id = id
-        self.category = category
-        self.post = post
-        self.upVotes= upVotes
-        self.downVotes = downVotes
+    def save_pitch(self):
+        db.session.add(self)
+        db.session.commit()
         
+    @classmethod
+    def clear_pitches(cls):
+        Pitch.all_pitches.clear()
         
-        
-class Category:
-    '''
-    Category class to define Category Objects
-    '''
     
-    def __init__(self,id,name):
-        self.id = id
-        self.name = name
+    def get_pitches(id):
+        pitches = Pitch.query.filter_by(category_id).all()
+        return pitches
+    
+            
+class Category(db.Model):
+    __tablename__ = 'categories'
+    id = db.Column(db.Integer,primary_key=True)
+    name = db.Column(db.String)
+    
+    
+    def save_category(self):
+        db.session.add(self)
+        db.session.commit()
+        
+    @classmethod
+    def get_categories(cls):
+        categories = Category.query.all()
+        return categories
         
 
-class Comment:
-    '''
-    Comment class to define Comment Objects
-    '''
+class Comment(db.Model):
+    __tablename__ = 'comments'
+    id = db.Column(db.Integer,primary_key=True)
+    feedback = db.Column(db.String)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'))
+    votes = db.Column(db.Integer)
     
-    def __init__(self,id,user_id,pitch_id,comment,feedback):
-        self.id = id
-        self.user_id = user_id
-        self.pitch_id = pitch_id
-        self.comment = comment
-        self.feedback = feedback
+    def save_comment(self):
+        db.session.add(self)
+        db.session.commit()
+        
+    @classmethod
+    def get_comments(self,id):
+        comment = Comments.query.filter_by(pitches_id = id).all()
+        return comment
         
     
         

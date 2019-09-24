@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf%}
+{% import 'macros.html' as macros%}
+
+{% block content %}
+
+    <div class="container">
+        <a class="btn btn-danger text-center text-primary" style="float:right;" href="{{url_for('main.new_pitch', id=category.id)}}">Post a Pitch</a>
+
+    </div>
+    <br>
+
+
+    <div class="col-md-10 col-md-offset-1 col-sm-12">
+        <h3 class="text-center">{{category.name|upper}}</h3>
+
+    </div>
+
+    {% if pitches %}
+    <div class="col-sm-12 col-md-8">
+        {{macro.displayPitches(pitches)}}
+
+    </div>
+
+    {% else %}
+    <div class="good">
+        <h4 style="padding: 17%; text-align:center; font-size:55px">Pitches not found in this Category</h4>
+    </div>
+    {% endif %}
+
+{% endblock %}

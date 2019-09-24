@@ -1,7 +1,7 @@
 from flask import render_template,request,url_for,abort
 from . import main
 from flask_login import login_required, current_user
-from ..models import User, Pitch , Category, Comment ,Votes
+from ..models import User, Pitch , Category, Comment 
 from .forms import UpdateProfile, PitchForm, CategoryForm, CommentForm
 from .. import db,photos
 
@@ -13,6 +13,7 @@ def index():
     '''
     
     category = Category.get_categories
+    print(category)
     
     return render_template('index.html', category = category)
 
@@ -37,8 +38,9 @@ def new_category():
      
 @main.route('/categories/<int:id>')
 def category(id):
-    cat = Category.query.get(id)
-    pitches = Pitch.query.filter_by(category=cat.id).all()
+    # cat = Category.query.get(id)
+    cat = Category.query.all()
+    pitches = Pitch.query.filter_by(category=cat.name).all()
     
     return render_template('category.html', pitches=pitches, category=cat)
 
