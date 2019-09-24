@@ -20,7 +20,65 @@ def index():
 @login_required
 def new_category():
     '''
-    View new route function that returns a page with a form to create
+    View new route function that returns a page with a form to create a category
+    '''
+    form = CategoryForm()
+    
+    if form.validate_on_submit():
+        name = form.name.data
+        new_category = Category(name=name)
+        new_category.save_category()
+        
+        return redirect(url_for('.index'))
+    
+    title = 'New category'
+    return render_template('new_category.html', category_form = form, title = title)
+     
+     
+@main.route('/categories/<int:id>')
+def category(id):
+    cat = Category.query.get(id)
+    pitches = Pitch.query.filter_by(category=cat.id).all()
+    
+    return render_template('category.html', pitches=pitches, category=cat)
+
+
+@main.route('/categories/view_pitch/add/<int:id>', methods=['GET', 'POST'])
+@login_required
+def new_pitch(id):
+    '''
+    Function to check Pitches form and fetch data from the fields
+    '''
+    form = PitchForm()
+    category = Category.query.filter_by(id=id).first()
+    
+    if category is None:
+        abort(404)
+        
+    if form.validate_on_submit():
+        post = form.post.data
+        new_pitch = Pitch(post=post, category=category.id, user_id=current_user.id)
+        new_pitch.save_pitch()
+        return redirect(url_for('.category', id=category.id))
+  
+    title = 'New Pitch'
+    return render_template('new_pitch.html', title = title, pitch_form = form, category = category)
+
+@main.route('/categories/view_pitch/<int:id>', methods=['GET', 'POST'])
+@login_required
+def view_pitch(id):
+    '''
+    Function the returns a single pitch for comment to be added
+    '''
+    
+    print(id)
+    pitches = Pitch.query.get(id)
+    
+    if pitches is None:
+        abort(404)
+        
+    comment = Comments.get_comments(id)
+    return render_template('pitch.html', pitches=pitches, comment=comment, category_id=id)
 
 
 @main.route('/user/<uname>')
