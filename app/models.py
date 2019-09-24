@@ -83,20 +83,7 @@ class Comment:
         self.comment = comment
         self.feedback = feedback
         
-        
-class Votes:
-    '''
-    Votes class to define Votes Objects
-    '''
     
-    def __init__(self,id,user_id,pitch_id,upVotes,downVotes):
-        self.id = id
-        self.user_id = user_id
-        self.pitch_id = pitch_id
-        self.upVotes = upVotes
-        self.downVotes = downVotes
-        
-        
         
         
     
