@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% import 'bootstrap/wtf.html' as wtf%}
+{% import 'bootstrap/wtf.html' as wtf %}
 
 
 
-{{% blocl content %}}
+{% block content %}
  <div class="container col-md-6" style="text-align: center">
      <h3>{{category.name|upper}} PITCH</h3>
     
@@ -14,4 +14,4 @@
 
  </div>
 
-{{% endblock %}}
+{% endblock %}

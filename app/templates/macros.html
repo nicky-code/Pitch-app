@@ -1,7 +1,7 @@
 {% macro displayCategoryList(category_list) %}
 
     {% for c in category_list %}
-    <a href="{{url_for('main.category',id=category.id)}}"><p>{{category.name|upper}}</p></a>
+    <a href="{{url_for('main.category',id=c.id)}}"><p>{{c.name|upper}}</p></a>
         <li>{{ c.name}}</li>
     {% endfor %}
 
@@ -23,7 +23,7 @@
             </div>
         </div>
     </div>
-    {{% endfor %}}
-    {{% endmacro %}}
+    {% endfor %}
+    {% endmacro %}
 
 

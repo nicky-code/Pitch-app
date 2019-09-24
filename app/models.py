@@ -78,6 +78,7 @@ class Category(db.Model):
     __tablename__ = 'categories'
     id = db.Column(db.Integer,primary_key=True)
     name = db.Column(db.String)
+    pitched = db.relationship('Pitched')
     
     
     def save_category(self):

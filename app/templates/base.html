@@ -8,18 +8,14 @@
         <title> Welcome to the best Pitch website </title>
         {% endif %}
     </head>
-
-{% extends 'bootstrap/base.html'%}
-<!-- Navbar block  --> 
-{% block navbar %}
-    {% include 'navbar.html' %}
-{% endblock %}
-
-    <body>
+    <body style="background-image: url('http://eskipaper.com/images/free-grass-background-1.jpg')">
+        {% extends 'bootstrap/base.html'%}
+        
         <!-- Content block -->
+        {% include 'navbar.html' %}
 
         {% block content %}
-
+        
         {% endblock%}
     </body>
 </html>

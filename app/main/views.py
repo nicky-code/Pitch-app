@@ -12,7 +12,7 @@ def index():
     View root page function that returns the index page and its data
     '''
     
-    category = Category.get_categories
+    category = Category.get_categories()
     print(category)
     
     return render_template('index.html', category = category)
@@ -40,9 +40,9 @@ def new_category():
 def category(id):
     # cat = Category.query.get(id)
     cat = Category.query.all()
-    pitches = Pitch.query.filter_by(category=cat.name).all()
+    # pitches = Pitch.query.filter_by(category=cat.name).all()
     
-    return render_template('category.html', pitches=pitches, category=cat)
+    return render_template('category.html', category=cat)
 
 
 @main.route('/categories/view_pitch/add/<int:id>', methods=['GET', 'POST'])
