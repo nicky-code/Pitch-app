@@ -1,5 +1,5 @@
 
-export SECRET_KEY='nicole77'
+export SECRET_KEY='nicole777'
 
 export MAIL_USERNAME=ualinenicole@gmail.com
 export MAIL_PASSWORD=santa437

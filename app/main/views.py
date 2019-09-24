@@ -1,4 +1,4 @@
-from flask import render_template,request,url_for,abort
+from flask import render_template,request,url_for,abort,redirect
 from . import main
 from flask_login import login_required, current_user
 from ..models import User, Pitch , Category, Comment 
@@ -53,15 +53,17 @@ def new_pitch(id):
     '''
     form = PitchForm()
     category = Category.query.filter_by(id=id).first()
+    pitches = Pitch.query.filter_by(category=category.id).all()
     
-    if category is None:
-        abort(404)
-        
+    # if category is None:
+    #     abort(404)
+    print(form.validate_on_submit())
     if form.validate_on_submit():
         post = form.post.data
-        new_pitch = Pitch(post=post, category=category.id, user_id=current_user.id)
+        title= form.title.data
+        new_pitch = Pitch(title=title, post=post, category=category.id, user_id =current_user.id )
         new_pitch.save_pitch()
-        return redirect(url_for('.category', id=category.id))
+        return redirect(url_for('main.index'))
   
     title = 'New Pitch'
     return render_template('new_pitch.html', title = title, pitch_form = form, category = category)
@@ -127,3 +129,50 @@ def update_pic(uname):
     return redirect(url_for('main.profile',uname=uname))
 
     return render_template("profile/profile.html", user=user)
+
+
+@main.route('/downvote/<int:id>', methods=['GET','POST'])
+def downvotes(id):
+    pitch = Pitch.query.filter_by(id=id).first()
+    
+    pitch.downvotes = pitch.downvotes +1
+    
+    db.session.add(pitch)
+    db.session.commit()
+    return redirect("/".format(id=pitch.id))
+
+
+@main.route('/upvote/<int:id>', methods=['GET','POST'])
+def upvotes(id):
+    pitch = Pitch.query.filter_by(id=id).first()
+    
+    print(pitch)
+    
+    pitch.upvotes = pitch.upvotes +1
+    
+    db.session.add(pitch)
+    db.session.commit()
+    return redirect("/".format(id=pitch.id))
+    return redirect(".profile".format(id=pitch.id))
+
+
+@main.route('/new_comment/<int:id>', methods=['GET', 'POST'])
+@login_required
+def new_comment(id):
+    '''
+    Function that adds a comment
+    '''
+    form = CommentForm()
+    comment = Comment.query.filter_by(pitch_id=id).all()
+    pitches = Pitch.query.filter_by(id=id).first()
+    user = User.query.filter_by(id=id).first()
+    title =f'Welcome to Pitches Comments'
+    
+    if form.validate_on_submit():
+        feedback = form.comment.data
+        new_comment = Comment(feedback=feedback, user_id=current_user.id, pitch_id=pitches.id)
+        new_comment.save_comment()
+        
+        return redirect(url_for('.index',uname=current_user.username))
+    return render_template('comment.html',title=title, comment_form=form, pitches=pitches)
+        

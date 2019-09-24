@@ -10,9 +10,10 @@ class UpdateProfile(FlaskForm):
     
 #Pitch Form
 class PitchForm(FlaskForm):
+    title=StringField('Add your title pitch')
     post = TextAreaField('Kindly post your Pitch')  
     submit = SubmitField('Submit Pitch')
-    vote = RadioField('default field arguments', choices=[('1', 'UpVote'), ('1', 'DownVote')])
+    # vote = RadioField('default field arguments', choices=[('1', 'UpVote'), ('1', 'DownVote')])
     
 #Category Form
 class CategoryForm(FlaskForm):

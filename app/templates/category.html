@@ -5,7 +5,7 @@
 {% block content %}
 
     <div class="container">
-        <a class="btn btn-danger text-center text-primary" style="float:right;" href="{{url_for('main.new_pitch', id=category.id)}}">Post a Pitch</a>
+        <a class="btn btn-danger text-center text-primary" style="float:right;" href="{{url_for('main.new_pitch', id = category.id)}}">Post a Pitch</a>
 
     </div>
     <br>
@@ -21,6 +21,7 @@
         {{macro.displayPitches(category.pitched)}}
 
     </div>
+  
 
     {% else %}
     <div class="good">
