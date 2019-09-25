@@ -36,3 +36,32 @@ We want our application to:
 ## Output Examples
 User will be able to see the pitch posted,comments,feedback,upvotes and downvotes for pitches.
 
+## TDD
+I test my project using Python3.6 manage.py test filename.
+
+## Setup/Installation Requirements
+
+1.Your project must have a user model,In your models, implement at least 1 one-to-many relationship.
+2.Your project should have a comment model.
+3.Your project should have a profile page.
+4.Your project should follow the proper folder structure.
+5.Your project should have a functioning authentication system.
+6.Your project should contain migration files for the different model structure.
+7.All your models should contain unittests to test the different behaviours. All your test should pass.
+8.Your project should be deployed to Heroku.
+9.Your project should contain proper commit messages.
+10.Project is polished and in portfolio-quality state.
+
+## Technology used
+Python3.6
+Flask
+Heroku
+Bootstrap
+
+## My link repository
+
+## Contact me on aline.nicole7@gmail.com
+## Title Licence
+Copyright(c)2019 Aline Nicole UWAMARIYA
+
+
