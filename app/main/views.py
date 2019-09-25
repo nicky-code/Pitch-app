@@ -13,7 +13,10 @@ def index():
     '''
     
     category = Category.get_categories()
+    
+    
     print(category)
+
     
     return render_template('index.html', category = category)
 
@@ -61,7 +64,7 @@ def new_pitch(id):
     if form.validate_on_submit():
         post = form.post.data
         title= form.title.data
-        new_pitch = Pitch(title=title, post=post, category=category.id, user_id =current_user.id )
+        new_pitch = Pitch(title=title, post=post, category=category.id, user_id =current_user.id, upvotes=0, downvotes=0 )
         new_pitch.save_pitch()
         return redirect(url_for('main.index'))
   
@@ -163,7 +166,7 @@ def new_comment(id):
     Function that adds a comment
     '''
     form = CommentForm()
-    comment = Comment.query.filter_by(pitch_id=id).all()
+    comment = Comment.query.filter_by(pitch_id=id).first()
     pitches = Pitch.query.filter_by(id=id).first()
     user = User.query.filter_by(id=id).first()
     title =f'Welcome to Pitches Comments'
@@ -174,5 +177,5 @@ def new_comment(id):
         new_comment.save_comment()
         
         return redirect(url_for('.index',uname=current_user.username))
-    return render_template('comment.html',title=title, comment_form=form, pitches=pitches)
+    return render_template('comment.html',title=title, comment_form=form, pitches=pitches, comment=comment)
         

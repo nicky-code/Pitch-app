@@ -8,38 +8,27 @@
                 <div class="row">
                     <div class="good">
                         <div class="col-md-12">
-                            <p>Pitch Name : {{pitches.name|upper}}</p>
+                            <p>Pitch Name : {{pitches.title|upper}}</p>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-10 col-sm-12">
                         <h3>Pitch Post : {{pitches.post}}</h3>
+                        {% for com in pitches.comments %}
+                    <p><strong>{{com.username}} feedback:</strong>{{com.feedback}}</pc>
+                {% endfor %}
                     </div>
+                    
                 </div>
+                <!-- <button href="{{url_for('main.upvotes',id=pitches.id)}}" type="button" class="btn btn-danger">{{pitches.upvotes}} UpVotes</button> -->
+               <a  href="/upvote/{{pitches.id}}"> <button type="button" class="btn btn-warning">{{pitches.upvotes}} UpVotes</button></a>
+                <a href="/downvote/{{pitches.id}}"><button  type="button" class="btn btn-warning">{{pitches.downvotes}}DownVotes</button></a>
+                <a href="{{url_for('main.new_comment',id=pitches.id)}}"><button type="button" class="btn btn-warning">Comment</button></a>
             </div>
         {% endfor %}
     {% endfor %}
 
 {% endmacro %}
-
-{% macro displayPitches(pitch_list) %}
-    {% for pitches in pitch_list %}
-    <div class="container">   
-        <div class="row">
-            <div class="good">
-                <div class="col-md-12">
-                    <p>{{pitches.name|upper}}</p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-10 col-sm-12">
-                <h3>{{pitches.post}}</h3>
-            </div>
-        </div>
-    </div>
-    {% endfor %}
-    {% endmacro %}
 
 
